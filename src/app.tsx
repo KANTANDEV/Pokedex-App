@@ -1,24 +1,30 @@
 // On importe le module React et nos hooks
 import React, { FunctionComponent, useState, useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import PokemonsDetail from "./pages/pokemon-detail";
 // On importe nos fichiers 
-import Pokemon from "./models/pokemon";
-import POKEMONS from "./models/mock-pokemon";
-// On type notre composant React 
+import PokemonList from './pages/pokemon-list'
+//  On type notre composant React a l'aide de FunctionComponent qui remplace React.FC
 const App: FunctionComponent = () => {
-// On declare une variable pokemons, on lui dit que ce doit etre un tableau de pokemon comme notre module, puis on lui donne la liste de nos pokemons (de mock-pokemon) 
-// et on inisialise un tableau vide par defaut pour notre hook useEffect
-    const [pokemons, setPokemons] = useState<Pokemon[]>( [] );
-// on met en place notre hook d'effect, avec deux arguments en premier notre fonction fleche qui appel la methode du hook d'etat "setPokemons" et on lui passe notre liste de POKEMONS
-// en deuxieme argument on passe un tableau vide qui permet d'evite le declanchement du hook d'effect a chaque modification de notre composant
-    useEffect(() =>{
-        setPokemons(POKEMONS);
-    }, []);
-    
+
+
     return (
-        <div>
-            <h1>Pokedex</h1>
-            <p>Il y a {pokemons.length} pokemon dans le Pokedex.</p>
-        </div>
+        <Router>
+            <div>
+                {/* Barre de navigation commune a toutes les pages  */}
+                <nav>
+                    <div className="nav-wrapper teal">
+                        <Link to="/" className="brand-logo center">Pokedex</Link>
+                    </div>
+                </nav>
+                {/* Systeme de gestion des routes de notre app */}
+                <Switch>
+                    <Route exact path="/" component={PokemonList} />
+                    <Route exact path="/pokemons" component={PokemonList} />
+                    <Route path="/pokemons/:id" component={PokemonsDetail} />
+                </Switch>
+            </div>
+        </Router>
     )
 }
 // On exporte notre app 
