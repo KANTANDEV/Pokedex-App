@@ -2,6 +2,8 @@
 import React, { FunctionComponent, useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import PokemonsDetail from "./pages/pokemon-detail";
+import PageNotFound from "./pages/page-not-found";
+import PokemonEdit from "./pages/pokemon-edit";
 // On importe nos fichiers 
 import PokemonList from './pages/pokemon-list'
 //  On type notre composant React a l'aide de FunctionComponent qui remplace React.FC
@@ -21,7 +23,9 @@ const App: FunctionComponent = () => {
                 <Switch>
                     <Route exact path="/" component={PokemonList} />
                     <Route exact path="/pokemons" component={PokemonList} />
+                    <Route exact path="/pokemons/edit/:id" component={PokemonEdit} />
                     <Route path="/pokemons/:id" component={PokemonsDetail} />
+                    <Route component={PageNotFound} />
                 </Switch>
             </div>
         </Router>
